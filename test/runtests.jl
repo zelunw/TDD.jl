@@ -26,17 +26,17 @@ using Test
 
 
 
-    @test DCneighbors(undirected_graph, 1) == [1, 2, 3];
-    @test DCneighbors(undirected_graph, 2) == [2, 1];
-    @test DCneighbors(undirected_graph, 3) == [3, 1];
-    @test DCneighbors(undirected_graph, 4) == [4, 5];
-    @test DCneighbors(undirected_graph, 5) == [5, 4];
+    @test DCneighbors(undirected_graph, 1) == Set([3, 2, 1]) #Sets are unordered
+    @test DCneighbors(undirected_graph, 2) == Set([2, 1]);
+    @test DCneighbors(undirected_graph, 3) == Set([3, 1]);
+    @test DCneighbors(undirected_graph, 4) == Set([4, 5]);
+    @test DCneighbors(undirected_graph, 5) == Set([5, 4]);
 
-    @test DCneighbors(directed_graph, 1) == [1, 3];
-    @test DCneighbors(directed_graph, 2) == [2, 1];
-    @test DCneighbors(directed_graph, 3) == [3];
-    @test DCneighbors(directed_graph, 4) == [4, 5];
-    @test DCneighbors(directed_graph, 5) == [5];
+    @test DCneighbors(directed_graph, 1) == Set([1, 3]);
+    @test DCneighbors(directed_graph, 2) == Set([2, 1]);
+    @test DCneighbors(directed_graph, 3) == Set([3]);
+    @test DCneighbors(directed_graph, 4) == Set([4, 5]);
+    @test DCneighbors(directed_graph, 5) == Set([5]);
     
     @test_throws ErrorException("node does not exist") DCneighbors(undirected_graph, 6);
 
@@ -44,7 +44,17 @@ using Test
 
     #2
 
+    # @test ICneighbors(undirected_graph, 1) == [1, 2, 3];
+    # @test ICneighbors(undirected_graph, 2) == [1, 2, 3];
+    # @test ICneighbors(undirected_graph, 3) == [1, 2, 3];
+    # @test ICneighbors(undirected_graph, 4) == [4, 5];
+    # @test ICneighbors(undirected_graph, 5) == [4, 5];
 
+    # @test ICneighbors(directed_graph, 1) == [1, 2, 3];
+    # @test ICneighbors(directed_graph, 2) == [1, 2, 3];
+    # @test ICneighbors(directed_graph, 3) == [1, 2, 3];
+    # @test ICneighbors(directed_graph, 4) == [4, 5];
+    # @test ICneighbors(directed_graph, 5) == [4, 5];
 
 
 end
