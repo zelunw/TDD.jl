@@ -44,19 +44,19 @@ using Test
 
     #2
 
-    @test ICneighbors(undirected_graph, 1) == Set([1, 2, 3]);
-    @test ICneighbors(undirected_graph, 2) == Set([1, 2, 3]);
-    @test ICneighbors(undirected_graph, 3) == Set([1, 2, 3]);
-    @test ICneighbors(undirected_graph, 4) == Set([4, 5]);
-    @test ICneighbors(undirected_graph, 5) == Set([4, 5]);
+    # @test ICneighbors(undirected_graph, 1) == Set([1, 2, 3]);
+    # @test ICneighbors(undirected_graph, 2) == Set([1, 2, 3]);
+    # @test ICneighbors(undirected_graph, 3) == Set([1, 2, 3]);
+    # @test ICneighbors(undirected_graph, 4) == Set([4, 5]);
+    # @test ICneighbors(undirected_graph, 5) == Set([4, 5]);
 
-    @test ICneighbors(directed_graph, 1) == Set([1, 2, 3]);
-    @test ICneighbors(directed_graph, 2) == Set([1, 2, 3]);
-    @test ICneighbors(directed_graph, 3) == Set([1, 2, 3]);
-    @test ICneighbors(directed_graph, 4) == Set([4, 5]);
-    @test ICneighbors(directed_graph, 5) == Set([4, 5]);
+    # @test ICneighbors(directed_graph, 1) == Set([1, 2, 3]);
+    # @test ICneighbors(directed_graph, 2) == Set([1, 2, 3]);
+    # @test ICneighbors(directed_graph, 3) == Set([1, 2, 3]);
+    # @test ICneighbors(directed_graph, 4) == Set([4, 5]);
+    # @test ICneighbors(directed_graph, 5) == Set([4, 5]);
     
-    @test_throws ErrorException("node does not exist") ICneighbors(undirected_graph, 6);
+    # @test_throws ErrorException("node does not exist") ICneighbors(undirected_graph, 6);
 
 
 

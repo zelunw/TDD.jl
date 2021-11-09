@@ -6,7 +6,7 @@ module TDD
 
 export DCneighbors
 
-function DCneighbors(graph_input::Array{Array{Int64,1},1}, node::Int64) #is there a way to do type declaration on object inputs ie graph_input for performance gainz?
+function DCneighbors(graph_input::Array{Array{Any,1},1}, node::Int64) #does the type declaration on graph_input improve performance?
 
     try        
      Set(vcat(node, graph_input[node])) #Sets are unordered
