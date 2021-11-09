@@ -6,7 +6,7 @@ module TDD
 
 export DCneighbors
 
-function DCneighbors(graph_input, node::Int64) #function argument type declaration for graph_input works like this? Since it is an object of Array{Array{Int64,1},1}
+function DCneighbors(graph_input::Array{Array{Int64,1},1}, node::Int64) #is there a way to do type declaration on object inputs ie graph_input for performance gainz?
 
     try        
      Set(vcat(node, graph_input[node])) #Sets are unordered
@@ -19,6 +19,8 @@ function DCneighbors(graph_input, node::Int64) #function argument type declarati
     end
         
 end
+
+#function ICneighbors(graph_input, node::Int64)
     
      
     
