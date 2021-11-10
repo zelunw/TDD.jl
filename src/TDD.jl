@@ -25,57 +25,77 @@ function DCneighbors(graph_input, node::Int64) #Does type declaration for object
 end
     
      
-function ICneighbors(graph_input, node::Int64)
+function ICneighbors(graph_input, node::Int64) #this is way convoluted implementation. An exemplary example solution of iteration and recursion examples would be helpful
 
-        
+    #if node does not exist return error    
     try
         graph_input[node]
     catch e
         error("node does not exist")
     end
-        
+    
+    #list connected vertices of each vertex in graph
+    AllNodes = [] 
+    for i in 1:length(graph_input) 
+        push!(AllNodes, DCneighbors(graph_input, i::Int64)) #this returns a Set
+    end
 
-            AllNodes = [] #lists connected vertices of each vertex in graph
-            for i in 1:length(graph_input) 
-                push!(AllNodes, DCneighbors(graph_input, i::Int64))
-            end
+    #store connected vertices of all vertices that directly connect to `node`
+    ConnectedToNode = [] 
+    for i in 1:length(graph_input) 
+        if in(node, AllNodes[i]) == true
+            union!(ConnectedToNode, AllNodes[i]) #ConnectedToNode is now an array (that has been unioned)...I think that's cuz ConnectedToNode is an array...
+                                                 #note: a more logical implementation would be to just find all i that have connection to 'node'. But this works...
+                                                 #wondering which way would perform faster...                           
+        else
+        end
+    end
 
-        
-            ConnectedToNode = [] 
-        
+    ConnectedToNode_Array = []
+    push!(ConnectedToNode_Array, Set([node])) #this starts ConnectedToNode_Array[1] so that ConnectedToNode pushes to ConnectedToNode_Array[2], so that
+                                              #nodeset_input[z-1] does not eval nodeset_input[0]
+                                              #note that this becomes a Set because pushing a Set into an empty array Any[]
+    push!(ConnectedToNode_Array, Set( convert(Array{Int64,1}, ConnectedToNode) ) ) #https://stackoverflow.com/questions/35482527/how-do-i-change-the-data-type-of-a-julia-array-from-any-to-float64
 
-            for i in 1:length(graph_input) #stores the connected vertices of all vertices that directly connect to node
-                if in(node, AllNodes[i]) == true
-                    union!(ConnectedToNode, AllNodes[i]) #ConnectedToNode is now an array                           
+    
+    #now can start recursive function
+
+    z_input = 2
+
+    function recursor(graph_input_input, AllNodes_input, nodeset_input, z) #the reason I'm doing this again is I don't know how to get around reinitializing
+                                                                        #the ConnectedToNode object with every run
+                                                                        #so this way ConnectedToNode_Array is initialized outside the function...
+                                                                        #also when I highlight this function to evaluate in REPL it seems to evaluate like 5 times...why? Seen this with other scripts too
+
+        if nodeset_input[z] == nodeset_input[z - 1]
+
+            return nodeset_input[z]
+
+        else
+
+            for i in 1:length(graph_input_input) 
+                if in(nodeset_input[z], AllNodes_input[i]) == true
+                    union!(nodeset_input[z], AllNodes_input[i]) #Set union with Set gives Set
                 else
                 end
             end
 
-            return ConnectedToNode
-
-            # ConnectedToNode_Set = Set( convert(Array{Int64,1}, ConnectedToNode) ) #https://stackoverflow.com/questions/35482527/how-do-i-change-the-data-type-of-a-julia-array-from-any-to-float64
-
+            push!(nodeset_input, nodeset_input[z]) #this already gives a Set since both those are Sets
             
+            recursor(graph_input_input, AllNodes_input, nodeset_input, z+1)
+            
+        end
+    end
 
-            # if SOMETHING
-            #     return ConnectedToNode_Set
-            # else
-            # end
-
-            # for j in ConnectedToNode_Set    
-            # ICneighbors(graph_input, j) #at the end try put ::Int64 back in here...I don't understand why it wouldnt work...
-            # end
+    #call
+    recursor(graph_input, AllNodes, ConnectedToNode_Array, z_input)
 
 
 
 
-
-
-    #     end #end of if-else to check node nonexistance
-    # end #end of try catch
    
 
-end
+end #function ICneighbors end
 
 
 
