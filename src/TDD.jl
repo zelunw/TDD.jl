@@ -27,18 +27,36 @@ end
      
 function ICneighbors(graph_input, node::Int64)
 
-    component = []
-
-    for i in 1:length(graph_input)
-
-        if in(node, DCneighbors(graph_input, i::Int64)) == true
-            push!(component, DCneighbors(graph_input, i::Int64))
-        else
-        end 
-
+    AllNodes = [] #lists connected vertices of each vertex in graph
+    for i in 1:length(graph_input) 
+        push!(AllNodes, DCneighbors(graph_input, i::Int64))
     end
 
-    return component
+ 
+    ConnectedToNode = [] 
+  
+
+    for i in 1:length(graph_input) #stores the connected vertices of all vertices that directly connect to node
+        if in(node, AllNodes[i]) == true
+            union!(ConnectedToNode, AllNodes[i]) #ConnectedToNode is now an array                           
+        else
+        end
+    end
+
+    ConnectedToNode_Set = Set( convert(Array{Int64,1}, ConnectedToNode) ) #https://stackoverflow.com/questions/35482527/how-do-i-change-the-data-type-of-a-julia-array-from-any-to-float64
+
+    
+
+    if SOMETHING
+        return ConnectedToNode_Set
+    else
+    end
+
+    for j in ConnectedToNode_Set    
+    ICneighbors(graph_input, j) #at the end try put ::Int64 back in here...I don't understand why it wouldnt work...
+    end
+
+   
 
 end
 
@@ -52,4 +70,8 @@ end
 
 
 
-end
+
+
+
+
+end #module end
