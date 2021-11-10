@@ -27,35 +27,52 @@ end
      
 function ICneighbors(graph_input, node::Int64)
 
-    AllNodes = [] #lists connected vertices of each vertex in graph
-    for i in 1:length(graph_input) 
-        push!(AllNodes, DCneighbors(graph_input, i::Int64))
+        
+    try
+        graph_input[node]
+    catch e
+        error("node does not exist")
     end
+        
 
- 
-    ConnectedToNode = [] 
-  
+            AllNodes = [] #lists connected vertices of each vertex in graph
+            for i in 1:length(graph_input) 
+                push!(AllNodes, DCneighbors(graph_input, i::Int64))
+            end
 
-    for i in 1:length(graph_input) #stores the connected vertices of all vertices that directly connect to node
-        if in(node, AllNodes[i]) == true
-            union!(ConnectedToNode, AllNodes[i]) #ConnectedToNode is now an array                           
-        else
-        end
-    end
+        
+            ConnectedToNode = [] 
+        
 
-    ConnectedToNode_Set = Set( convert(Array{Int64,1}, ConnectedToNode) ) #https://stackoverflow.com/questions/35482527/how-do-i-change-the-data-type-of-a-julia-array-from-any-to-float64
+            for i in 1:length(graph_input) #stores the connected vertices of all vertices that directly connect to node
+                if in(node, AllNodes[i]) == true
+                    union!(ConnectedToNode, AllNodes[i]) #ConnectedToNode is now an array                           
+                else
+                end
+            end
 
-    
+            return ConnectedToNode
 
-    if SOMETHING
-        return ConnectedToNode_Set
-    else
-    end
+            # ConnectedToNode_Set = Set( convert(Array{Int64,1}, ConnectedToNode) ) #https://stackoverflow.com/questions/35482527/how-do-i-change-the-data-type-of-a-julia-array-from-any-to-float64
 
-    for j in ConnectedToNode_Set    
-    ICneighbors(graph_input, j) #at the end try put ::Int64 back in here...I don't understand why it wouldnt work...
-    end
+            
 
+            # if SOMETHING
+            #     return ConnectedToNode_Set
+            # else
+            # end
+
+            # for j in ConnectedToNode_Set    
+            # ICneighbors(graph_input, j) #at the end try put ::Int64 back in here...I don't understand why it wouldnt work...
+            # end
+
+
+
+
+
+
+    #     end #end of if-else to check node nonexistance
+    # end #end of try catch
    
 
 end
