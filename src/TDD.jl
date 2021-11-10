@@ -55,21 +55,28 @@ function ICneighbors(graph_input, node::Int64) #this is way convoluted implement
     push!(ConnectedToNode_Array, Set([node])) #this starts ConnectedToNode_Array[1] so that ConnectedToNode pushes to ConnectedToNode_Array[2], so that
                                               #nodeset_input[z-1] does not eval nodeset_input[0]
                                               #note that this becomes a Set because pushing a Set into an empty array Any[]
+    push!(ConnectedToNode_Array, Set([node]))
     push!(ConnectedToNode_Array, Set( convert(Array{Int64,1}, ConnectedToNode) ) ) #https://stackoverflow.com/questions/35482527/how-do-i-change-the-data-type-of-a-julia-array-from-any-to-float64
 
     
     #now can start recursive function
 
-    z_input = 2
+    z_input = 3
 
     function recursor(graph_input_input, AllNodes_input, nodeset_input, z) #the reason I'm doing this again is I don't know how to get around reinitializing
                                                                         #the ConnectedToNode object with every run
                                                                         #so this way ConnectedToNode_Array is initialized outside the function...
                                                                         #also when I highlight this function to evaluate in REPL it seems to evaluate like 5 times...why? Seen this with other scripts too
 
-        if nodeset_input[z] == nodeset_input[z - 1]
+        if nodeset_input[z] == nodeset_input[z - 2] #this could produce incorrect exit with terminal nodes with 1 partner since union returns
+                                                    #the nodeset_input[~next~] as something == the previous
+                                                    #need to force it to iterate through the latest nodeset_input one more time
+                                                    #change nodeset_input[z] == nodeset_input[z - 1] to nodeset_input[z] == nodeset_input[z - 2]
+                                                    #z_input = 2 to z_input = 3
+                                                    #added another push step in initialization of ConnectedToNode_Array
+                                                    #hmm that doesnt help, just prolonged the problem
 
-            return nodeset_input[z]
+            return nodeset_input
 
         else
 
