@@ -89,7 +89,7 @@ function ICneighbors(graph_input, node::Int64) #this is way convoluted implement
         else
 
             for i in 1:length(graph_input_input) 
-                if in(nodeset_input[z], AllNodes_input[i]) == true #THIS IS NOT WORKING HOW I THINK IT WORKS
+                if any( in.(nodeset_input[z], Ref(AllNodes_input[i])) ) == true #THIS IS NOT WORKING HOW I THINK IT WORKS
                     union!(nodeset_input[z], AllNodes_input[i]) #Set union with Set gives Set
                 else
                 end
