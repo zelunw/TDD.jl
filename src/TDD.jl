@@ -72,7 +72,9 @@ function ICneighbors(graph_input, node::Int64) #this is way convoluted implement
                                                                         #so this way ConnectedToNode_Array is initialized outside the function...
                                                                         #also when I highlight this function to evaluate in REPL it seems to evaluate like 5 times...why? Seen this with other scripts too
 
-        if nodeset_input[z] == nodeset_input[z - 1] #this could produce incorrect exit with terminal nodes with 1 partner since union returns
+        if ( nodeset_input[z] == nodeset_input[z - 1] )  &  ( length(nodeset_input) == (2 + length(graph_input_input)) )
+
+                                                    #this could produce incorrect exit with terminal nodes with 1 partner since union returns
                                                     #the nodeset_input[~next~] as something == the previous
                                                     #need to force it to iterate through the latest nodeset_input one more time
                                                     #change nodeset_input[z] == nodeset_input[z - 1] to nodeset_input[z] == nodeset_input[z - 2]
@@ -83,13 +85,19 @@ function ICneighbors(graph_input, node::Int64) #this is way convoluted implement
                                                         #^reverted
                                                     #hmm that doesnt help, just prolonged the problem
                                                     #no also this occurs with non terminal cases too. Makes me think my recursion is not working right
+                                                        #fixed, see below the in.()
+                                                    #now works for most cases except node 4,5,6,7,8 of train_graph
+                                                    #problem lies in recursor always restarting with node
+                                                    #for example if node 8, then tracing the ConnectedToNode_Array stack,
+                                                    #the stack of nodeset_input[z] would be [8], [8, 7, 6], [8, 7, 6] which would trigger early exit
+                                                    #add an & statement to if exit condition to fix
 
-            return ConnectedToNode_Array
+            return ConnectedToNode_Array #return ConnectedToNode_Array to see stack of all connected nodes
 
         else
 
             for i in 1:length(graph_input_input) 
-                if any( in.(nodeset_input[z], Ref(AllNodes_input[i])) ) == true #THIS IS NOT WORKING HOW I THINK IT WORKS
+                if any( in.(nodeset_input[z], Ref(AllNodes_input[i])) ) == true #THIS IS NOT WORKING HOW I THINK IT WORKS #fixed. See docs for in() and any()
                     union!(nodeset_input[z], AllNodes_input[i]) #Set union with Set gives Set
                 else
                 end
