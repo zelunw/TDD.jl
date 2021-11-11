@@ -55,9 +55,14 @@ function ICneighbors(graph_input, node::Int64) #this is way convoluted implement
     push!(ConnectedToNode_Array, Set([node])) #this starts ConnectedToNode_Array[1] so that ConnectedToNode pushes to ConnectedToNode_Array[2], so that
                                               #nodeset_input[z-1] does not eval nodeset_input[0]
                                               #note that this becomes a Set because pushing a Set into an empty array Any[]
+    
     push!(ConnectedToNode_Array, Set( convert(Array{Int64,1}, ConnectedToNode) ) ) #https://stackoverflow.com/questions/35482527/how-do-i-change-the-data-type-of-a-julia-array-from-any-to-float64
 
     
+
+    #honestly I think up to this point it works as intended
+
+
     #now can start recursive function
 
     z_input = 2
@@ -67,14 +72,24 @@ function ICneighbors(graph_input, node::Int64) #this is way convoluted implement
                                                                         #so this way ConnectedToNode_Array is initialized outside the function...
                                                                         #also when I highlight this function to evaluate in REPL it seems to evaluate like 5 times...why? Seen this with other scripts too
 
-        if nodeset_input[z] == nodeset_input[z - 1]
+        if nodeset_input[z] == nodeset_input[z - 1] #this could produce incorrect exit with terminal nodes with 1 partner since union returns
+                                                    #the nodeset_input[~next~] as something == the previous
+                                                    #need to force it to iterate through the latest nodeset_input one more time
+                                                    #change nodeset_input[z] == nodeset_input[z - 1] to nodeset_input[z] == nodeset_input[z - 2]
+                                                        #^reverted
+                                                    #z_input = 2 to z_input = 3
+                                                        #^reverted
+                                                    #added another push step in initialization of ConnectedToNode_Array
+                                                        #^reverted
+                                                    #hmm that doesnt help, just prolonged the problem
+                                                    #no also this occurs with non terminal cases too. Makes me think my recursion is not working right
 
-            return nodeset_input[z]
+            return ConnectedToNode_Array
 
         else
 
             for i in 1:length(graph_input_input) 
-                if in(nodeset_input[z], AllNodes_input[i]) == true
+                if any( in.(nodeset_input[z], Ref(AllNodes_input[i])) ) == true #THIS IS NOT WORKING HOW I THINK IT WORKS
                     union!(nodeset_input[z], AllNodes_input[i]) #Set union with Set gives Set
                 else
                 end

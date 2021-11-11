@@ -24,6 +24,18 @@ using Test
         []      #nodes reacheable from node 5
     ]
 
+    #new test crazy case - a unidirectional train directed graph
+    train_graph = [
+        [],  #nodes reacheable from node 1
+        [1], #nodes reacheable from node 2
+        [2],
+        [3],
+        [4],
+        [5],
+        [6],
+        [7]  #nodes reacheable from node 8
+    ]
+
 
 
     @test DCneighbors(undirected_graph, 1) == Set([3, 2, 1]) #Sets are unordered
@@ -44,19 +56,31 @@ using Test
 
     #2
 
-    @test ICneighbors(undirected_graph, 1) == Set([1, 2, 3]);
-    @test ICneighbors(undirected_graph, 2) == Set([1, 2, 3]);
-    @test ICneighbors(undirected_graph, 3) == Set([1, 2, 3]);
-    @test ICneighbors(undirected_graph, 4) == Set([4, 5]);
-    @test ICneighbors(undirected_graph, 5) == Set([4, 5]);
+    @test ICneighbors(undirected_graph, 1) == Set([1, 2, 3])
+    @test ICneighbors(undirected_graph, 2) == Set([1, 2, 3])
+    @test ICneighbors(undirected_graph, 3) == Set([1, 2, 3])
+    @test ICneighbors(undirected_graph, 4) == Set([4, 5])
+    @test ICneighbors(undirected_graph, 5) == Set([4, 5])
 
-    @test ICneighbors(directed_graph, 1) == Set([1, 2, 3]);
-    @test ICneighbors(directed_graph, 2) == Set([1, 2, 3]);
-    @test ICneighbors(directed_graph, 3) == Set([1, 2, 3]);
-    @test ICneighbors(directed_graph, 4) == Set([4, 5]);
-    @test ICneighbors(directed_graph, 5) == Set([4, 5]);
+    @test ICneighbors(directed_graph, 1) == Set([1, 2, 3])
+    @test ICneighbors(directed_graph, 2) == Set([1, 2, 3])
+    @test ICneighbors(directed_graph, 3) == Set([1, 2, 3])
+    @test ICneighbors(directed_graph, 4) == Set([4, 5])
+    @test ICneighbors(directed_graph, 5) == Set([4, 5])
     
-    @test_throws ErrorException("node does not exist") ICneighbors(undirected_graph, 6);
+    @test_throws ErrorException("node does not exist") ICneighbors(undirected_graph, 6)
+
+    #new tests
+    @test ICneighbors(train_graph, 1) == Set([1, 2, 3,4,5,6,7,8])
+    @test ICneighbors(train_graph, 2) == Set([1, 2, 3,4,5,6,7,8])
+    @test ICneighbors(train_graph, 3) == Set([1, 2, 3,4,5,6,7,8])
+    @test ICneighbors(train_graph, 4) == Set([1, 2, 3,4,5,6,7,8])
+    @test ICneighbors(train_graph, 5) == Set([1, 2, 3,4,5,6,7,8])
+    @test ICneighbors(train_graph, 6) == Set([1, 2, 3,4,5,6,7,8])
+    @test ICneighbors(train_graph, 7) == Set([1, 2, 3,4,5,6,7,8])
+    @test ICneighbors(train_graph, 8) == Set([1, 2, 3,4,5,6,7,8])
+
+
 
 
 
