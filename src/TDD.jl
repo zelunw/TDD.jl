@@ -59,6 +59,10 @@ function ICneighbors(graph_input, node::Int64) #this is way convoluted implement
     push!(ConnectedToNode_Array, Set( convert(Array{Int64,1}, ConnectedToNode) ) ) #https://stackoverflow.com/questions/35482527/how-do-i-change-the-data-type-of-a-julia-array-from-any-to-float64
 
     
+
+    #honestly I think up to this point it works as intended
+
+
     #now can start recursive function
 
     z_input = 2
@@ -80,12 +84,12 @@ function ICneighbors(graph_input, node::Int64) #this is way convoluted implement
                                                     #hmm that doesnt help, just prolonged the problem
                                                     #no also this occurs with non terminal cases too. Makes me think my recursion is not working right
 
-            return nodeset_input
+            return ConnectedToNode_Array
 
         else
 
             for i in 1:length(graph_input_input) 
-                if in(nodeset_input[z], AllNodes_input[i]) == true
+                if in(nodeset_input[z], AllNodes_input[i]) == true #THIS IS NOT WORKING HOW I THINK IT WORKS
                     union!(nodeset_input[z], AllNodes_input[i]) #Set union with Set gives Set
                 else
                 end
