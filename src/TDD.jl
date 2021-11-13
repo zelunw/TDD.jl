@@ -6,6 +6,10 @@ module TDD
 
 export DCneighbors
 export ICneighbors
+export AllComponents
+
+
+#note to self I am using graph_input as argument for different functions which is fine but keep in mind...
 
 function DCneighbors(graph_input, node::Int64) #Does type declaration for object input improve performance? for example `graph_input::Array{Array{Int64,1},1}`
                                                #The graph object can be of type Array{Array{Int64,1},1} or Array{Array{Any,1},1} if there are blank nodes [] in a directed graph
@@ -95,6 +99,23 @@ end #function ICneighbors end
 
 
 
+
+
+
+
+function AllComponents(graph_input)
+    
+    output = []
+
+    for i in 1:length(graph_input)
+
+    push!(output, ICneighbors(graph_input, i::Int64) )
+
+    end #for loop
+
+    return Set(unique(output))
+
+end #function AllComponents
 
 
 
