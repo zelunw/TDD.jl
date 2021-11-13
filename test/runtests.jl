@@ -102,8 +102,8 @@ using Test
     #3
 
     @test AllComponents(directed_graph) == Set( [ Set([1, 2, 3]), Set([4, 5]) ] ) #for some reason need to wrap Set argument in []
-
-    
+    @test AllComponents(undirected_graph) == Set( [ Set([1, 2, 3]), Set([4, 5]) ] ) 
+    @test AllComponents(train_graph) == Set( [ Set([1, 2, 3,4,5,6,7,8]) ] ) 
     
 
 
