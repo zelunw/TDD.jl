@@ -99,6 +99,15 @@ using Test
 
 
 
+    #3
+
+    @test AllComponents(directed_graph) == Set( [ Set([1, 2, 3]), Set([4, 5]) ] ) #for some reason need to wrap Set argument in []
+
+    
+    
+
+
+
 
 end
 
