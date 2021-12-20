@@ -202,6 +202,13 @@ using Test
         #need to go back figure out which tests erreously passed
         #I assume the error exceptions. But also which others?
         #Yep erroneous passes labelled in comments see above. Now gotta figure out why
+        #relevant bugs are in DCneighbors
+        #Ok so ICneighbors if input a Bool_matrix and a node, it does Bool_matrix[node] which just returns true/false, so makes sense all those tests fail right now
+        #AllComponents depends on ICneighbors so also makes sense those tests fail
+        #But DCneighbors does something different
+        #If I run DCneighbors(A_undirected_graph, somenode) for example it returns some Set{Int64} which may or may not pass the test
+        #not gonna fix DCneighbors right now so that it correctly fails the tests, afraid gonna mess something up
+        #just keep this in mind. When I implement the functions with multiple dispatch specifying method for input Bool matrix this could end up being moot
 
 
 
