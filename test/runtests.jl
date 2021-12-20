@@ -142,28 +142,28 @@ using Test
 
     #4 tests for adjacency matrix format -- see matrices above, tests below (copied, changed matrices input)
 
-        @test DCneighbors(A_undirected_graph, 1) == Set([3, 2, 1]) #Sets are unordered
-        @test DCneighbors(A_undirected_graph, 2) == Set([2, 1])
-        @test DCneighbors(A_undirected_graph, 3) == Set([3, 1])
+        @test DCneighbors(A_undirected_graph, 1) == Set([3, 2, 1])                              #Sets are unordered
+        @test DCneighbors(A_undirected_graph, 2) == Set([2, 1]) #passes erreously
+        @test DCneighbors(A_undirected_graph, 3) == Set([3, 1]) #passes erreously
         @test DCneighbors(A_undirected_graph, 4) == Set([4, 5])
         @test DCneighbors(A_undirected_graph, 5) == Set([5, 4])
 
         @test DCneighbors(A_directed_graph, 1) == Set([1, 3])
-        @test DCneighbors(A_directed_graph, 2) == Set([2, 1])
+        @test DCneighbors(A_directed_graph, 2) == Set([2, 1]) #passes erreously
         @test DCneighbors(A_directed_graph, 3) == Set([3])
         @test DCneighbors(A_directed_graph, 4) == Set([4, 5])
         @test DCneighbors(A_directed_graph, 5) == Set([5])
 
-        @test DCneighbors(A_train_graph, 1) == Set([1])
-        @test DCneighbors(A_train_graph, 2) == Set([2,1])
-        @test DCneighbors(A_train_graph, 3) == Set([3,2])
+        @test DCneighbors(A_train_graph, 1) == Set([1]) #passes erreously
+        @test DCneighbors(A_train_graph, 2) == Set([2,1]) #passes erreously
+        @test DCneighbors(A_train_graph, 3) == Set([3,2]) 
         @test DCneighbors(A_train_graph, 4) == Set([4,3])
         @test DCneighbors(A_train_graph, 5) == Set([5,4])
         @test DCneighbors(A_train_graph, 6) == Set([6,5])
         @test DCneighbors(A_train_graph, 7) == Set([7,6])
         @test DCneighbors(A_train_graph, 8) == Set([8,7])
 
-        @test_throws ErrorException("node does not exist") DCneighbors(undirected_graph, 6)
+        @test_throws ErrorException("node does not exist") DCneighbors(undirected_graph, 6) #passes erreously (though expected? this is technicallythetruth)
 
         #4-2
 
@@ -179,7 +179,7 @@ using Test
         @test ICneighbors(A_directed_graph, 4) == Set([4, 5])
         @test ICneighbors(A_directed_graph, 5) == Set([4, 5])
         
-        @test_throws ErrorException("node does not exist") ICneighbors(undirected_graph, 6)
+        @test_throws ErrorException("node does not exist") ICneighbors(undirected_graph, 6) #passes erreously (though expected? this is technicallythetruth)
 
         #new tests
         @test ICneighbors(A_train_graph, 1) == Set([1, 2, 3,4,5,6,7,8])
@@ -201,6 +201,7 @@ using Test
         #note at this point, 7 tests for Adjacency Matrix input pass, even though I have not implemented this...
         #need to go back figure out which tests erreously passed
         #I assume the error exceptions. But also which others?
+        #Yep erroneous passes labelled in comments see above. Now gotta figure out why
 
 
 
