@@ -209,7 +209,7 @@ using Test
         #If I run DCneighbors(A_undirected_graph, somenode) for example it returns some Set{Int64} which may or may not pass the test
         #Because it is just doing `Set(vcat(node, graph_input[node]))` which returns a Set{Int64}([node, 0 or 1 depending on if indexed value from Bool_matrix]) which may or may not be the right answer
         #not gonna fix DCneighbors right now so that it correctly fails the tests, afraid gonna mess something up
-        #just keep this in mind. When I implement the functions with multiple dispatch specifying method for input Bool matrix this could end up being moot
+        #just keep this in mind. When I implement the functions with multiple dispatch specifying method for input Bool matrix this will end up being moot
 
 
 

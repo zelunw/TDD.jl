@@ -28,7 +28,22 @@ function DCneighbors(graph_input, node::Int64) #Does type declaration for object
         
 end
     
+#4 Adjacency Matrix Format
+function DCneighbors(graph_input::Array{Bool,2}, node::Int64) 
+
+    print("test")
+    #for this implementation, all the information about connectedness should be in the row of interest in Bool
+
+end
+    #turn node to row
      
+
+
+
+
+
+
+
 function ICneighbors(graph_input, node::Int64) #this is way convoluted implementation. An exemplary example solution of iteration and recursion examples would be helpful
 
     #if node does not exist return error    
@@ -120,6 +135,7 @@ end #function AllComponents
 
 
 
+#Problem 4 generalize to adjacency matrix format
 
 
 
